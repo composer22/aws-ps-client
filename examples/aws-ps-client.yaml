@@ -1,0 +1,4 @@
+aws-access-key: AWSKEY
+aws-access-secret: AWSSECRETHERE
+aws-region: us-west-2
+format: bash

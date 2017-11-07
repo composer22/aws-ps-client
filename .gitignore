@@ -1,0 +1,7 @@
+.aws-ps-client.yaml
+.aws-ps-client.yml
+aws-ps-client
+aws-ps-client-darwin-amd64
+aws-ps-client-linux-amd64
+aws-ps-client-windows-amd64.exe
+**/.DS_Store
