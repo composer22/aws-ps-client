@@ -44,33 +44,35 @@ application or in your home directory. The name, with period, is:
 
 This file can be empty, but must exist.
 
-You have two places you can configure AWS
+You have two places you can configure AWS:
 
-Pass parameters in your application
-Put attributes in your config file
+* Pass parameters in your application
+* Put attributes in your config file
 
 Parameters or attributes can be values or can be paths to a file that contains
 the value for example:
 
 VALUES by call:
-
+```
 --aws-access-key foo
 --aws-access-secret bar
 --aws-access-region us-west-2
 --aws-access-key /path/to/key.file
 --aws-access-secret /path/to/secret.file
 --aws-access-region /path/to/region.file
-
+```
 VALUES by config file:
-
+```
 aws-access-key foo
 aws-access-secret bar
 aws-access-region us-west-2
 aws-access-key /path/to/key.file
 aws-access-secret /path/to/secret.file
 aws-access-region /path/to/region.file
-
+```
 an example config file is included under /examples
+
+Using files allows the app to be used in a docker container w/ secrets
 
 ## Building
 
