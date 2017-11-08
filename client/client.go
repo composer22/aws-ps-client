@@ -121,7 +121,6 @@ func (c *Client) QueryPath(path string, recursive bool, version string) (Paramet
 	var parms Parameters
 	for _, r := range result {
 		for _, p := range r.Parameters {
-
 			// Prep record.
 			name := *p.Name
 			dataType := *p.Type
@@ -159,7 +158,6 @@ func (c *Client) QueryPath(path string, recursive bool, version string) (Paramet
 			})
 		}
 	}
-
 	return parms, nil
 }
 

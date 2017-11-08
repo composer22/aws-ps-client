@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
+	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -38,7 +39,7 @@ func init() {
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.aws-ps-client.yaml)")
 	RootCmd.PersistentFlags().StringP("aws-access-key", "k", "", "AWS IAM access authentication key or full path to a file containing key")
 	RootCmd.PersistentFlags().StringP("aws-access-secret", "s", "", "AWS IAM access authentication secret or full path to a file containing secret")
-	RootCmd.PersistentFlags().StringP("aws-region", "r", "", "AWS region ex: us-west-2")
+	RootCmd.PersistentFlags().StringP("aws-region", "r", "us-west-2", "AWS region ex: us-west-2")
 	RootCmd.PersistentFlags().StringP("format", "f", "bash", "Return 'bash', 'json', or 'text'")
 
 	// Get values from config file.
@@ -46,6 +47,7 @@ func init() {
 	viper.BindPFlag("aws-access-secret", RootCmd.PersistentFlags().Lookup("aws-access-secret"))
 	viper.BindPFlag("aws-region", RootCmd.PersistentFlags().Lookup("aws-region"))
 	viper.BindPFlag("format", RootCmd.PersistentFlags().Lookup("format"))
+	viper.SetDefault("aws-region", "us-west-2")
 	viper.SetDefault("format", "text")
 }
 
@@ -54,9 +56,14 @@ func initConfig() {
 	if cfgFile != "" {
 		viper.SetConfigFile(cfgFile)
 	}
+	home, err := homedir.Dir()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
 	viper.SetConfigName(".aws-ps-client") // name of config file (without extension).
-	viper.AddConfigPath("$HOME")          // adding home directory as first search path.
+	viper.AddConfigPath(home)             // adding home directory as first search path.
 	viper.AddConfigPath(".")              // adding current.
 	viper.AutomaticEnv()                  // read in environment variables that match.
 
@@ -70,7 +77,7 @@ func initConfig() {
 	awsRegion = viper.GetString("aws-region")
 	format = viper.GetString("format")
 
-	// We allow for these secrets via a filepath, so that it confirms to
+	// We allow for some config settings via a filepath, so that it loads from
 	// Docker secrets mechanism.
 
 	// Try to load awsAccessKey from a file. If successful, replace value.

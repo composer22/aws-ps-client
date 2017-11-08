@@ -43,7 +43,6 @@ func printGetCmd(param *client.Parameter, prefix string) {
 	case "bash":
 		name := strings.Replace(param.Name, prefix, "", 1)
 		fmt.Printf("export %s=\"%s\"\n", name, param.Value)
-
 	case "json":
 		b, err := json.MarshalIndent(param, "", "\t")
 		if err != nil {
