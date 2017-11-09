@@ -107,5 +107,4 @@ Additional help topics:{{range .Commands}}{{if .IsHelpCommand}}
 
 Use "{{.CommandPath}} [command] --help" for more information about a command.{{end}}
 `
-
 }

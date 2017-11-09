@@ -1,4 +1,11 @@
-aws-access-key: AWSKEY
-aws-access-secret: AWSSECRETHERE
+# Using docker secrets example or any path to a file that contains values.
+#aws-access-key: /run/secrets/aws-access-key
+#aws-access-secret: /run/secrets/aws-access-secret
+#aws-region: /run/secrets/aws-access-region
+#format: /path/to/my/format-value.file
+
+# Hard values
+aws-access-key: AMAZ0NT0K3N
+aws-access-secret: letmeinXXXXX
 aws-region: us-west-2
 format: bash

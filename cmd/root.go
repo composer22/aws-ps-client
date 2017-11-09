@@ -53,19 +53,23 @@ func init() {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
+
 	if cfgFile != "" {
+		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
-	}
-	home, err := homedir.Dir()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+	} else {
+		// Find home directory.
+		home, err := homedir.Dir()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		viper.AddConfigPath(home) // adding home directory as first search path.
+		viper.AddConfigPath(".")
+		viper.SetConfigName(".aws-ps-client") // name of config file (without extension).
 	}
 
-	viper.SetConfigName(".aws-ps-client") // name of config file (without extension).
-	viper.AddConfigPath(home)             // adding home directory as first search path.
-	viper.AddConfigPath(".")              // adding current.
-	viper.AutomaticEnv()                  // read in environment variables that match.
+	viper.AutomaticEnv() // read in environment variables that match.
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err != nil {

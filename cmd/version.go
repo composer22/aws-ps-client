@@ -26,7 +26,7 @@ aws-ps-client version
 func printVersion(result string) {
 	switch format {
 	case "bash":
-		fmt.Printf("echo \"%s\"\n", result)
+		fmt.Printf("export AWS_PS_VERSION=\"%s\"\n", result)
 	case "json":
 		fmt.Printf("{\"version\":\"%s\"}\n", result)
 	case "text":
@@ -69,5 +69,4 @@ Additional help topics:{{range .Commands}}{{if .IsHelpCommand}}
 
 Use "{{.CommandPath}} [command] --help" for more information about a command.{{end}}
 `
-
 }
