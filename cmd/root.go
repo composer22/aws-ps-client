@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
@@ -86,14 +87,15 @@ func initConfig() {
 
 	// Try to load awsAccessKey from a file. If successful, replace value.
 	if v, err := ioutil.ReadFile(awsAccessKey); err == nil {
-		awsAccessKey = string(v)
+		awsAccessKey = strings.Trim(string(v), "\n")
+
 	}
 	// Try to load awsAccessSecret from a file. If successful, replace value.
 	if v, err := ioutil.ReadFile(awsAccessSecret); err == nil {
-		awsAccessSecret = string(v)
+		awsAccessSecret = strings.Trim(string(v), "\n")
 	}
 	// Try to load awsRegion from a file. If successful, replace value.
 	if v, err := ioutil.ReadFile(awsRegion); err == nil {
-		awsRegion = string(v)
+		awsRegion = strings.Trim(string(v), "\n")
 	}
 }

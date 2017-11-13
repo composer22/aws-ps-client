@@ -89,7 +89,6 @@ dep ensure -update
 dep status
 ```
 
-
 Information on Golang installation, including pre-built binaries, is available at <http://golang.org/doc/install>.
 
 Run `go version` to see the version of Go which you have installed.
@@ -102,6 +101,34 @@ A successful build run produces no messages and creates an executable called `aw
 directory.
 
 Run `go help` for more guidance, and visit <http://golang.org/> for tutorials, presentations, references and more.
+
+## Docker Image
+
+The docker file and image is an example of how an application container can make calls to
+retrieve parameters from AWS using Docker Swarm
+
+Save your AWS access key, secret and region in docker secrets under these keys:
+
+* aws-access-key
+* aws-access-secret
+* aws-access-region
+
+CLI Examples:
+```
+# Build image
+docker build --force-rm --build-arg release_tag=v1.0.0 -t composer22/aws-ps-client:latest  .
+
+# Run the service
+docker service  create --name test-ps-client --replicas 1 \
+--secret aws-access-key \
+--secret aws-access-secret \
+--secret aws-access-region \
+-e AWS_PS_PATH=/your-ps-location/dev/apps/myapp/
+composer22/aws-ps-client:latest
+
+# Check the logs
+
+```
 
 ## License
 
