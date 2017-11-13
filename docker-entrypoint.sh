@@ -31,4 +31,4 @@ env | sort
 echo "========================================="
 
 # Don't die for 1 hour.
-sleep(3600)
+sleep 3600
