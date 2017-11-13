@@ -123,7 +123,7 @@ docker service  create --name test-ps-client --replicas 1 \
 --secret aws-access-key \
 --secret aws-access-secret \
 --secret aws-access-region \
--e AWS_PS_PATH=/your-ps-location/dev/apps/myapp/
+-e AWS_PS_PATH=/your-ps-location/dev/apps/myapp/ \
 composer22/aws-ps-client:latest
 
 # Check the logs
