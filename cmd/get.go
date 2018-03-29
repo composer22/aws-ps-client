@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"strings"
+	"path/filepath"
 
 	"github.com/composer22/aws-ps-client/client"
 	"github.com/spf13/cobra"
@@ -41,7 +41,7 @@ aws-ps-client get /path/with/KEY1  -v 12 -f bash
 func printGetCmd(param *client.Parameter, prefix string) {
 	switch format {
 	case "bash":
-		name := strings.Replace(param.Name, prefix, "", 1)
+		name := filepath.Base(param.Name)
 		fmt.Printf("export %s=\"%s\"\n", name, param.Value)
 	case "json":
 		b, err := json.MarshalIndent(param, "", "\t")
